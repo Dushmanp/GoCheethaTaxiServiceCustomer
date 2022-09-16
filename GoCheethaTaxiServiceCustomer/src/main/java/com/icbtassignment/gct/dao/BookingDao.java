@@ -44,7 +44,7 @@ public class BookingDao {
 					+ "inner JOIN customer on booking.customer_Id=customer.customer_Id\r\n"
 					+ "inner JOIN vehicle_category on booking.vehicle_category_Id=vehicle_category.vehicle_category_Id "
 					+ " left JOIN payment on booking.booking_Id = payment.booking_Id\r\n"
-					+ "left JOIN driver on booking.driver_Id=driver.driver_Id where booking.customer_Id=?";
+					+ "left JOIN driver on booking.driver_Id=driver.driver_Id where booking.customer_Id=? ORDER BY booking_Date DESC";
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, customerId);
 			rset= stmt.executeQuery();
