@@ -101,7 +101,45 @@ public class BookingDao {
 		
 		return bookings;
 	}
+	
+	public static int checkDriver(DataSource dataSource, String city_Id,String vehicle_category_Id) {
+		
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rset  = null;
+		String sql = null;
+		int returnVal = 0;
+		
+		try {
+			con = dataSource.getConnection();
+			sql= "select * from driver WHERE driver_Id NOT IN (select driver_Id from booking WHERE "
+					+ "booking_Status = 'Pending' or booking_Status = 'Confirmed' or booking_Status = 'PickedUp' or booking_Status = 'Dropped' "
+					+ "AND city_Id=? ) and vehicle_category_Id =?;";
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, city_Id);
+			stmt.setString(2, vehicle_category_Id);
+			rset= stmt.executeQuery();
+			
+			if(rset.next()) {
+				returnVal = 1;
+				
+			}	
+			else {
+				returnVal = 0;
+			}
+			
+			
+		} catch (Exception e) {
+			throw new CustomException(e.getMessage());
+		}finally {
+			
+			close(con,stmt,null);
+		}
+		
+		return returnVal;
+	}
 
+	
 	public static void addBooking(DataSource dataSource, Booking booking) {
 		Connection con = null;
 		PreparedStatement pstmt = null;

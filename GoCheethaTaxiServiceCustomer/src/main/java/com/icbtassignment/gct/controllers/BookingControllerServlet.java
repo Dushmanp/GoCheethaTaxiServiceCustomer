@@ -23,6 +23,7 @@ import com.icbtassignment.gct.entities.VehicleCategory;
 import com.icbtassignment.gct.services.BookingService;
 import com.icbtassignment.gct.services.CityServices;
 import com.icbtassignment.gct.services.CommonServices;
+import com.icbtassignment.gct.services.CustomerService;
 import com.icbtassignment.gct.services.StreetService;
 import com.icbtassignment.gct.services.VehicleCategoryService;
 import com.icbtassignment.gct.utils.EntityValidator;
@@ -67,6 +68,11 @@ public class BookingControllerServlet extends HttpServlet {
 		{
 			mainList(request,response);
 		}
+		
+		if(command.equals("MAKE-BOOKING") )
+		{
+			makeBooking(request,response);
+		}
 			
 			
 	}
@@ -90,6 +96,16 @@ public class BookingControllerServlet extends HttpServlet {
 		}
 		
 	}
+	
+	private void makeBooking(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+			
+			request.setAttribute("exceptionerrorshow", "d-none");
+			request.getRequestDispatcher("/booking.jsp").forward(request, response);
+		
+		
+	}
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String command =null;
@@ -104,6 +120,7 @@ public class BookingControllerServlet extends HttpServlet {
 	private void addData(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			
+				
 				HttpSession session = request.getSession();
 				String tableName ="booking";
 				String booking_Id = CommonServices.getNumberFormat(dataSource,tableName);
@@ -114,9 +131,11 @@ public class BookingControllerServlet extends HttpServlet {
 				String source_Location = request.getParameter("source_Location");
 				String destinationation_Location = request.getParameter("destinationation_Location");
 				String booking_Status = "Pending";
-				String vehicle_category_Id = request.getParameter("vehicle_category_Id");
-				String getbooking_Date = request.getParameter("booking_Date");
 				String city_Id = request.getParameter("city_Id");
+				String vehicle_category_Id = request.getParameter("vehicle_category_Id");
+			
+				String getbooking_Date = request.getParameter("booking_Date");
+				
 				Date booking_Date=Date.valueOf(getbooking_Date);
 
 				Booking booking = new Booking(booking_Id,driver_Id,customer_Id,source_Location,destinationation_Location,pickup_Time,drop_Time,booking_Status,vehicle_category_Id,booking_Date,city_Id);
@@ -129,10 +148,11 @@ public class BookingControllerServlet extends HttpServlet {
 					request.setAttribute("error", errors);
 					request.getRequestDispatcher("/booking.jsp").forward(request, response);
 				}else {
-						BookingService.addBooking(dataSource, booking);
+					BookingService.addBooking(dataSource, booking);
 					 CommonServices.setNumberFormat(dataSource, tableName);
 					 response.sendRedirect(request.getContextPath() +"/BookingControllerServlet?command=SHOW-LIST");
 				}
+			
 			
 			
 		} catch (Exception e) {

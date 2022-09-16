@@ -43,7 +43,7 @@
 	              <div class="form-group row">
 						<label class = "col-4 col-form-label text-light" for="txtcustomer_Name">City</label>
                         <div class="col-8"> 						
-							<select class="form-control" name="city_Id" id="drpCity">
+							<select class="form-control" name="city_Id" id="drpCity" required>
 							      <option>Select City</option>
 							 </select>
 						</div>
@@ -52,7 +52,7 @@
                    	 <div class="form-group row" id="divdrpPickup">
 						<label class = "col-4 col-form-label text-light" for="txtcustomer_Name">Pickup Location</label>
                         <div class="col-8"> 						
-							<select class="form-control" name="source_Location" id="drpPickup">
+							<select class="form-control" name="source_Location" id="drpPickup" required>
 							      <option>Select Pickup Street</option>
 							 </select>
 						</div>
@@ -61,7 +61,7 @@
                    	<div class="form-group row" id="divdrpDrop">
 						<label class = "col-4 col-form-label text-light" for="txtcustomer_Name">Drop Location</label>
                         <div class="col-8"> 						
-							<select class="form-control" name="destinationation_Location" id="drpDrop">
+							<select class="form-control" name="destinationation_Location" id="drpDrop" required>
 							      <option>Select Drop Street</option>
 							 </select>
 						</div>
@@ -69,7 +69,7 @@
                    	 <div class="form-group row" id="divdrpVehicle">
 						<label class = "col-4 col-form-label text-light" for="txtcustomer_Name">Vehicle</label>
                         <div class="col-8"> 						
-							<select class="form-control" name="vehicle_category_Id" id="drpVehicle">
+							<select class="form-control" name="vehicle_category_Id" id="drpVehicle" required>
 							      <option>Select Vehicle</option>
 							 </select>
 						</div>

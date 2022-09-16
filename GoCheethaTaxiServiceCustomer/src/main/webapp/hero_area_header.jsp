@@ -30,7 +30,7 @@
                 </li>
                
                 <li class="nav-item">
-                  <a class="nav-link" href="booking.jsp">Booking</a>
+                  <a class="nav-link" href="BookingControllerServlet?command=MAKE-BOOKING">Booking</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="login.jsp">Login</a>
